@@ -1,28 +1,61 @@
-import { Link } from "react-router-dom"
+import axios from "axios"
+import { useContext } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import Logo from "../assets/img/Driven.png"
+import { useForm } from "../components/useForm"
+import { InfoContext } from "../context/Info"
 
 
 export default function LoginPage() {
+
+    const [form, handleForm] = useForm({ email: "", password: "" })
+    const navigate = useNavigate()
+    const { user, setUser } = useContext(InfoContext)
+
+    function login(event) {
+
+        event.preventDefault();
+
+        const URL = "https://mock-api.driven.com.br/api/v4/driven-plus/auth/login"
+
+        const promise = axios.post(URL, form)
+
+        promise.then(res => {
+            setUser(res.data)
+            console.log(res.data)
+        })
+
+        promise.catch((err) => {
+            console.log(err.response.data)
+        })
+    }
+
     return (
         <ContainerScreen>
             <Container>
                 <img src={Logo} alt="Logo Driven" />
-                <ContainerForm>
+                <ContainerForm onSubmit={login}>
                     <input
                         type="email" required
                         placeholder="E-mail"
+                        name="email"
+                        value={(form.email)}
+                        onChange={handleForm}
                     />
                     <input
                         type="password"
                         placeholder="Senha"
+                        name="password"
+                        value={(form.password)}
+                        onChange={handleForm}
                     />
-                    <Button>
+                    <Button type="submit">
                         ENTRAR
                     </Button>
                 </ContainerForm>
                 <Link to="/sign-up">
-                    <SemCadastro>Não possui uma conta? Cadastre-se</SemCadastro>    
+                    <SemCadastro>Não possui uma conta? Cadastre-se</SemCadastro>
                 </Link>
             </Container>
         </ContainerScreen>
@@ -44,6 +77,7 @@ flex-direction:column;
 display: flex;
 padding-top: 70px;
 input{
+    all: unset;
     height: 45px;
     padding-left: 10px;
     border-radius: 5px;

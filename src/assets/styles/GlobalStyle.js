@@ -54,6 +54,7 @@ table {
 * {
     font-family: 'Roboto', sans-serif;
 }
+
 `
 
 export default GlobalStyle;

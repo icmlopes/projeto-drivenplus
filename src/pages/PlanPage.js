@@ -6,9 +6,7 @@ export default function PlanPage() {
     return (
         <ContainerScreen>
             <Container>
-
                 <img src={seta} alt="Seta" />
-
                 <Imagem>
                     <img src={plano1} alt="Logo Driven" />
                 </Imagem>
@@ -22,22 +20,24 @@ export default function PlanPage() {
                     <p>R$39,99 cobrados mensalmente</p>
                 </InfoPlano>
                 <ContainerForm>
-                    <input
+                    <InputMaior
                         type="text"
                         placeholder="Nome impresso no cartão"
                     />
-                    <input
-                        type="number"
-                        placholder="Dígitos do cartão"
+                    <InputMaior
+                        type="text"
+                        placeholder="Digito do cartão"
                     />
-                    <input
-                        type="number"
-                        placeholder="Código de segurança"
-                    />
-                    <input
-                        type="month"
-                        placeholder="Validade"
-                    />
+                    <InfoCartao>
+                        <InputMenor
+                            type="text"
+                            placeholder="Código de segurança"
+                        />
+                        <InputMenor
+                            type="text"
+                            placeholder="Validade"
+                        />
+                    </InfoCartao>
                     <Button>
                         ASSINAR
                     </Button>
@@ -88,17 +88,34 @@ const ContainerForm = styled.form`
 flex-direction:column;
 display: flex;
 margin-top: 40px;
-input{
-    width: 35vh;
-    height: 52px;
-    padding-left: 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    background-color: #FFFFFF;
-    color: #7E7E7E;
-    border: none;
-} 
 `
+const InfoCartao = styled.div`
+display: flex;
+justify-content: space-between;
+`
+
+const InputMaior = styled.input`
+width: 35vh;
+height: 52px;
+padding-left: 10px;
+border-radius: 5px;
+margin-bottom: 15px;
+background-color: #FFFFFF;
+color: #7E7E7E;
+border: none;
+`
+const InputMenor = styled.input`
+width: 16vh;
+height: 52px;
+padding-left: 10px;
+border-radius: 5px;
+margin-bottom: 15px;
+background-color: #FFFFFF;
+color: #7E7E7E;
+border: none;
+font-size: 10px;
+`
+
 const Button = styled.button`
 background-color: #FF4791;
 border-radius: 5px;
