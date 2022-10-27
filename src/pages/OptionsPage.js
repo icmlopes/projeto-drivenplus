@@ -45,19 +45,12 @@ export default function OptionsPage() {
                 <Title>
                     Escolha seu Plano
                 </Title>
-                <ContainerOpcao>
-                    <img src={plano1} alt="Logo Driven" />
-                    <h2>R$39,99</h2>
-                </ContainerOpcao>
-                <ContainerOpcao>
-                    <img src={plano2} alt="Logo Driven" />
-                    <h2>R$69,99</h2>
-                </ContainerOpcao>
-                <ContainerOpcao>
-                    <img src={plano3} alt="Logo Driven" />
-                    <h2>R$99,99</h2>
-                </ContainerOpcao>
-
+                {selectedPlan.map((p) => (
+                    <ContainerOpcao>
+                        {<img src={p.image} alt="Logo Driven" />}
+                        <h2>R${p.price}</h2>
+                    </ContainerOpcao>
+                ))}
             </Container>
         </ContainerScreen>
     )
@@ -80,8 +73,8 @@ margin-bottom: 30px;
 display: flex;
 justify-content: center;
 `
-const ContainerOpcao = styled.div`
-width: 250px;
+const ContainerOpcao = styled.button`
+width: 300px;
 height: 180px;
 border: 3px solid #7e7e7e;
 border-radius: 12px;
@@ -91,6 +84,7 @@ display: flex;
 padding-left: 20px;
 padding-right: 20px;
 margin-bottom: 15px;
+background-color: transparent;
 h2{
     font-weight: 700;
     font-size: 24px;
