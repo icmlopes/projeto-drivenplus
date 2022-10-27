@@ -1,24 +1,22 @@
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import plano1 from "../assets/img/Plano1.png"
-import plano2 from "../assets/img/Plano2.png"
-import plano3 from "../assets/img/Plano3.png"
 import { InfoContext } from "../context/Info"
-
-
 
 export default function OptionsPage() {
 
-    const { user, setUser } = useContext(InfoContext)
+    const { user, setUser, token, setToken, setIdPlan } = useContext(InfoContext)
     const [selectedPlan, setSelectedPlan] = useState([])
+    const navigate = useNavigate()
+    const [perk, setPerk] = useState([{}])
 
     useEffect(() => {
-        if (user.token !== undefined) {
-            console.log(user.token)
+        if (token !== undefined) {
+            console.log(token)
             const config = {
                 headers: {
-                    "Authorization": `Bearer ${user.token}`
+                    "Authorization": `Bearer ${token}`
                 }
             }
 
@@ -28,6 +26,7 @@ export default function OptionsPage() {
             promise.then((res) => {
                 console.log(res.data)
                 setSelectedPlan(res.data)
+                setPerk(res.data.perks)
             })
 
             promise.catch((err) => {
@@ -36,8 +35,25 @@ export default function OptionsPage() {
 
 
         }
-    }, [])
+    }, [user])
 
+    if (user.token === undefined) {
+        return (
+            <ContainerScreen>
+                <Container>
+                    <Title>
+                        Carregando...
+                    </Title>
+                </Container>
+            </ContainerScreen>
+        )
+        
+    }
+
+    function handlePlanID(id){
+        setIdPlan(id)
+        navigate(`/subscriptions/${id}`)
+    }
 
     return (
         <ContainerScreen>
@@ -45,8 +61,8 @@ export default function OptionsPage() {
                 <Title>
                     Escolha seu Plano
                 </Title>
-                {selectedPlan.map((p) => (
-                    <ContainerOpcao>
+                {selectedPlan.map((p, index) => (
+                    <ContainerOpcao key={index} onClick={() => handlePlanID(p.id)}>
                         {<img src={p.image} alt="Logo Driven" />}
                         <h2>R${p.price}</h2>
                     </ContainerOpcao>
@@ -55,6 +71,8 @@ export default function OptionsPage() {
         </ContainerScreen>
     )
 }
+
+
 
 const ContainerScreen = styled.div`
 display: flex;

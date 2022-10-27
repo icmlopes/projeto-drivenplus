@@ -11,8 +11,8 @@ export default function LoginPage() {
 
     const [form, handleForm] = useForm({ email: "", password: "" })
     const navigate = useNavigate()
-    const { user, setUser } = useContext(InfoContext)
-    const userSerializado = JSON.stringify(user)
+    const { user, setUser, setAndPersistToken, token, setToken } = useContext(InfoContext)
+    
 
     function login(event) {
 
@@ -25,17 +25,17 @@ export default function LoginPage() {
         promise.then(res => {
             form.membership === null ? navigate("/home") : navigate("/subscriptions")
             setUser(res.data)
+            setAndPersistToken(res.data.token)
             console.log(res.data)
-            localStorage.setItem("dados", userSerializado)
         })
 
         promise.catch((err) => {
             console.log(err.response.data)
             alert(err.response.data.message)
         })
+
+        console.log(token)
     }
-
-
 
     return (
 
