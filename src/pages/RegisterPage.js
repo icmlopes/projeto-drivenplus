@@ -21,9 +21,11 @@ export default function RegisterPage() {
             navigate("/")
         )
 
-        promise.catch((err) =>
-            console.log(err.response.data),
-            alert("Não foi possível fazer o seu cadastro")
+        promise.catch((err) => {
+            console.log(err.response.data)
+            alert(err.response.data.message)
+        }
+            
         )
 
     }

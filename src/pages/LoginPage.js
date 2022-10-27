@@ -12,6 +12,7 @@ export default function LoginPage() {
     const [form, handleForm] = useForm({ email: "", password: "" })
     const navigate = useNavigate()
     const { user, setUser } = useContext(InfoContext)
+    const userSerializado = JSON.stringify(user)
 
     function login(event) {
 
@@ -22,16 +23,22 @@ export default function LoginPage() {
         const promise = axios.post(URL, form)
 
         promise.then(res => {
+            form.membership === null ? navigate("/home") : navigate("/subscriptions")
             setUser(res.data)
             console.log(res.data)
+            localStorage.setItem("dados", userSerializado)
         })
 
         promise.catch((err) => {
             console.log(err.response.data)
+            alert(err.response.data.message)
         })
     }
 
+
+
     return (
+
         <ContainerScreen>
             <Container>
                 <img src={Logo} alt="Logo Driven" />

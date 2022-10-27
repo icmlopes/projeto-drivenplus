@@ -1,10 +1,44 @@
+import axios from "axios"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import plano1 from "../assets/img/Plano1.png"
 import plano2 from "../assets/img/Plano2.png"
 import plano3 from "../assets/img/Plano3.png"
+import { InfoContext } from "../context/Info"
+
 
 
 export default function OptionsPage() {
+
+    const { user, setUser } = useContext(InfoContext)
+    const [selectedPlan, setSelectedPlan] = useState([])
+
+    useEffect(() => {
+        if (user.token !== undefined) {
+            console.log(user.token)
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${user.token}`
+                }
+            }
+
+            const URL = "https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships"
+            const promise = axios.get(URL, config)
+
+            promise.then((res) => {
+                console.log(res.data)
+                setSelectedPlan(res.data)
+            })
+
+            promise.catch((err) => {
+                console.log(err.response.data)
+            })
+
+
+        }
+    }, [])
+
+
     return (
         <ContainerScreen>
             <Container>
@@ -12,15 +46,15 @@ export default function OptionsPage() {
                     Escolha seu Plano
                 </Title>
                 <ContainerOpcao>
-                    <img src={plano1} alt="Logo Driven"/>
+                    <img src={plano1} alt="Logo Driven" />
                     <h2>R$39,99</h2>
                 </ContainerOpcao>
                 <ContainerOpcao>
-                    <img src={plano2} alt="Logo Driven"/>
+                    <img src={plano2} alt="Logo Driven" />
                     <h2>R$69,99</h2>
                 </ContainerOpcao>
                 <ContainerOpcao>
-                    <img src={plano3} alt="Logo Driven"/>
+                    <img src={plano3} alt="Logo Driven" />
                     <h2>R$99,99</h2>
                 </ContainerOpcao>
 

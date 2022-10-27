@@ -4,7 +4,7 @@ export const InfoContext = createContext();
 
 export default function InfoProvider({children}){
 
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(null);
 
     return(
         <InfoContext.Provider
