@@ -5,7 +5,7 @@ import LoginPage from "./pages/LoginPage"
 import HomePage from "./pages/HomePage"
 import RegisterPage from "./pages/RegisterPage"
 import OptionsPage from "./pages/OptionsPage"
-import PlanPage from "./pages/PlanPage"
+import PlanPage from "./pages/PlanPage/PlanPage"
 import GlobalStyle from "./assets/styles/GlobalStyle";
 
 export default function App() {

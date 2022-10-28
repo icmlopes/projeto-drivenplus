@@ -1,17 +1,18 @@
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
-import seta from "../assets/img/Seta.png"
-import { InfoContext } from "../context/Info"
-import calendario from "../assets/img/calendario.png"
-import nota from "../assets/img/nota.png"
+import seta from "../../assets/img/Seta.png"
+import { InfoContext } from "../../context/Info"
+import calendario from "../../assets/img/calendario.png"
+import nota from "../../assets/img/nota.png"
+import SignPlan from "./SignPlan"
 
 
 export default function PlanPage() {
 
     const { user, setUser, token, setToken, idPlan } = useContext(InfoContext)
     const [perk, setPerk] = useState([{}])
-
+    
     console.log(idPlan)
 
     useEffect(() => {
@@ -56,8 +57,8 @@ export default function PlanPage() {
                             <h3>Benefícios:</h3>
                         </ContainerBeneficio>
 
-                        {perk.map((b, index) => (
-                            <p>{index + 1}.{b.title}</p>
+                        {perk.map((b, index) => ( 
+                            <p>{index + 1}.{b.title}</p> 
                         ))}
                         <ContainerPreco>
                             <img src={nota} alt="nota" />
@@ -65,29 +66,7 @@ export default function PlanPage() {
                         </ContainerPreco>
                         <p>R${user.price} cobrados mensalmente</p>
                     </InfoPlano>
-                    <ContainerForm>
-                        <InputMaior
-                            type="text"
-                            placeholder="Nome impresso no cartão"
-                        />
-                        <InputMaior
-                            type="text"
-                            placeholder="Digito do cartão"
-                        />
-                        <InfoCartao>
-                            <InputMenor
-                                type="text"
-                                placeholder="Código de segurança"
-                            />
-                            <InputMenor
-                                type="text"
-                                placeholder="Validade"
-                            />
-                        </InfoCartao>
-                        <Button>
-                            ASSINAR
-                        </Button>
-                    </ContainerForm>
+                    <SignPlan/>
                 </Container>
             </ContainerScreen>
         </>
@@ -133,48 +112,7 @@ p{
     font-size:20px;
 }
 `
-const ContainerForm = styled.form`
-flex-direction:column;
-display: flex;
-margin-top: 40px;
-`
-const InfoCartao = styled.div`
-display: flex;
-justify-content: space-between;
-`
 
-const InputMaior = styled.input`
-width: 35vh;
-height: 52px;
-padding-left: 10px;
-border-radius: 5px;
-margin-bottom: 15px;
-background-color: #FFFFFF;
-color: #7E7E7E;
-border: none;
-`
-const InputMenor = styled.input`
-width: 16vh;
-height: 52px;
-padding-left: 10px;
-border-radius: 5px;
-margin-bottom: 15px;
-background-color: #FFFFFF;
-color: #7E7E7E;
-border: none;
-font-size: 10px;
-`
-
-const Button = styled.button`
-background-color: #FF4791;
-border-radius: 5px;
-font-weight: 700;
-color: #FFFFFF;
-height: 45px;
-border: none;
-margin-top: 10px;
-font-family: roboto;
-`
 
 const ContainerBeneficio = styled.div`
 display: flex;
