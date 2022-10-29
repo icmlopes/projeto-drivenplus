@@ -122,27 +122,21 @@ function PrintModal({setModalIsOpen, form, token}) {
     console.log(planPerks)
 
     return (
-        <Modal
-        // isOpen={modalIsOpen}
-        // onRequestClose={closeModal}
-        // styled={customStyles}
-        >
+        <Modal>
             <ContainerModal>
                 <Text>
                     <h1>Tem certeza que deseja assinar o plano {plan.name} (R${plan.price})?</h1>
                 </Text>
                 <Buttons>
                     <Nao onClick={() => setModalIsOpen(false)}>Não</Nao>
-
- 
-                    <Sim onClick={handleSubmit} >Sim</Sim>
-                
-                    
+                    <Sim onClick={handleSubmit} >Sim</Sim>  
                 </Buttons>
             </ContainerModal>
         </Modal>
     )
 }
+
+
 
 const Container = styled.div`
 
