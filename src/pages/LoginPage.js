@@ -11,12 +11,17 @@ export default function LoginPage() {
 
     const [form, handleForm] = useForm({ email: "", password: "" })
     const navigate = useNavigate()
-    const { user, setUser, setAndPersistToken, token, setToken } = useContext(InfoContext)
+    const { user, setUser, setAndPersistToken, token, setToken, userMembership } = useContext(InfoContext)
     
-    useEffect(() => {
-        if ( token !== null) navigate("/subscriptions") 
 
-    }, [token])
+    useEffect(() => {
+        console.log(userMembership)
+        if (userMembership !== null) navigate("/home")
+        else if ( token !== null) navigate("/subscriptions") 
+
+    }, [token, userMembership])
+
+
 
     function login(event) {
 

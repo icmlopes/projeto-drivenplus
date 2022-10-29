@@ -8,10 +8,10 @@ import { InfoContext } from "../../context/Info"
 
 export default function HomePage() {
 
-    const { token, user, planPerks } = useContext(InfoContext)
+    const { token, user, planPerks, userMembership } = useContext(InfoContext)
     const navigate = useNavigate()
 
-    console.log(user)
+    console.log("Chegueei")
 
     function handleSubmit(){
 
@@ -27,6 +27,7 @@ export default function HomePage() {
 
         promise.then((res) => {
             console.log(res.data)
+            localStorage.removeItem("userMembership")
             navigate("/subscriptions")
         })
 
@@ -44,7 +45,7 @@ export default function HomePage() {
                         Olá, {user.name}
                     </Title>
                     <ContainerBenefits>
-                        {planPerks.map((t, index) => (
+                        {userMembership.membership.perks.map((t, index) => (
                             <a href={t.link} key={index}>
                                 <Benefits >
                                     {t.title}
@@ -53,7 +54,7 @@ export default function HomePage() {
                         ))}
                     </ContainerBenefits>
                     <ContainerFuncionalidades>
-                        <Link to={"/"}>
+                        <Link to={"/subscriptions"}>
                             <ChangePlan>
                                 Mudar plano
                             </ChangePlan>

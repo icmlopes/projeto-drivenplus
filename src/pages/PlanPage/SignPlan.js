@@ -80,7 +80,7 @@ export default function SignPlan() {
 function PrintModal({setModalIsOpen, form, token}) {
 
     const { user, idPlan, plan, setPlan } = useContext(InfoContext)
-    const { membershipId, setUserMembership, persistMembership, persistPerk, planPerks } = useContext(InfoContext)
+    const { membershipId, setUserMembership, persistMembership } = useContext(InfoContext)
     const navigate = useNavigate()
     
 
@@ -110,7 +110,6 @@ function PrintModal({setModalIsOpen, form, token}) {
         promise.then((res) => {
             console.log(res.data)
             persistMembership(res.data)
-            persistPerk(res.data.membership.perks)
             navigate("/home")
         })
 
@@ -119,7 +118,6 @@ function PrintModal({setModalIsOpen, form, token}) {
         })
     }
 
-    console.log(planPerks)
 
     return (
         <Modal>

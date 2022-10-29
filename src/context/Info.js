@@ -8,16 +8,16 @@ export default function InfoProvider({children}){
     const keeptToken = localStorage.getItem("token")
     const [token, setToken] = useState(keeptToken)
     const [idPlan, setIdPlan] = useState(null)
-    const keeptMembership = localStorage.getItem("userMembership")
-    const [userMembership, setUserMembership] = useState(null)
+    const keeptMembership = JSON.parse(localStorage.getItem("userMembership") || null)
+    const [userMembership, setUserMembership] = useState(keeptMembership)
     const [plan, setPlan] = useState({})
-    const [planPerks, setPlanPerks] = useState({})
+    // const keeptPlanPerks = JSON.parse(localStorage.getItem("planPerks") || null)
+    // const [planPerks, setPlanPerks] = useState(keeptPlanPerks)
 
     console.log(plan)
 
     console.log(user)
 
-    console.log(planPerks)
 
     function setAndPersistToken(userToken) {
         setToken(userToken)
@@ -26,15 +26,15 @@ export default function InfoProvider({children}){
 
     function persistMembership(membership){
         setUserMembership(membership)
-        localStorage.setItem("userMembership", membership)
+        localStorage.setItem("userMembership", JSON.stringify(membership))
         console.log(membership)
     }
 
-    function persistPerk(perks){
-        setPlanPerks(perks)
-        localStorage.setItem("planPerks", perks)
-        console.log(perks)
-    }
+    // function persistPerk(perks){
+    //     setPlanPerks(perks)
+    //     localStorage.setItem("planPerks", JSON.stringify(perks))
+    //     console.log(perks)
+    // }
 
     
 
@@ -43,7 +43,6 @@ export default function InfoProvider({children}){
             value={{
                 setAndPersistToken,
                 persistMembership,
-                persistPerk,
                 user,
                 setUser,
                 token,
@@ -54,8 +53,7 @@ export default function InfoProvider({children}){
                 setUserMembership,
                 plan, 
                 setPlan,
-                planPerks,
-                setPlanPerks
+
             }}
         >
             {children}
