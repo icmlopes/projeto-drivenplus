@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useContext } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import NavBar from "../../components/NavBar"
 import { InfoContext } from "../../context/Info"
@@ -9,6 +9,7 @@ import { InfoContext } from "../../context/Info"
 export default function HomePage() {
 
     const { token, user, planPerks } = useContext(InfoContext)
+    const navigate = useNavigate()
 
     console.log(user)
 
