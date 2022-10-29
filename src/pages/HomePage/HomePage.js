@@ -1,5 +1,6 @@
+import axios from "axios"
 import { useContext } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 import NavBar from "../../components/NavBar"
 import { InfoContext } from "../../context/Info"
@@ -7,10 +8,31 @@ import { InfoContext } from "../../context/Info"
 
 export default function HomePage() {
 
-    const { userMembership, user, setUser, planPerks, setPlanPerks } = useContext(InfoContext)
-    const navigate = useNavigate()
+    const { token, user, planPerks } = useContext(InfoContext)
 
     console.log(user)
+
+    function handleSubmit(){
+
+        const URL = `https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions`
+
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+
+        const promise = axios.delete(URL, config)
+
+        promise.then((res) => {
+            console.log(res.data)
+            navigate("/subscriptions")
+        })
+
+        promise.catch((err) => {
+            console.log(err.response.data)
+        })
+    }
 
     return (
         <>
@@ -22,20 +44,20 @@ export default function HomePage() {
                     </Title>
                     <ContainerBenefits>
                         {planPerks.map((t, index) => (
-                            <a href={t.link}>
-                                <Benefits>
+                            <a href={t.link} key={index}>
+                                <Benefits >
                                     {t.title}
                                 </Benefits>
                             </a>
                         ))}
                     </ContainerBenefits>
                     <ContainerFuncionalidades>
-                        <Link to={navigate("/")}>
+                        <Link to={"/"}>
                             <ChangePlan>
                                 Mudar plano
                             </ChangePlan>
                         </Link>
-                        <Button >
+                        <Button onClick={handleSubmit}>
                             Cancelar plano
                         </Button>
                     </ContainerFuncionalidades>
