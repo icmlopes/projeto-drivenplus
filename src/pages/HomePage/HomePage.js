@@ -119,7 +119,7 @@ font-family: roboto;
 width: 330px;
 `
 const Button = styled.button`
-background-color: #FF4791;
+background-color: #FF4747;
 border-radius: 5px;
 font-weight: 700;
 color: #FFFFFF;
