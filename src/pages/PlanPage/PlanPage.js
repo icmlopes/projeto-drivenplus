@@ -6,15 +6,14 @@ import { InfoContext } from "../../context/Info"
 import calendario from "../../assets/img/calendario.png"
 import nota from "../../assets/img/nota.png"
 import SignPlan from "./SignPlan"
+import { Link } from "react-router-dom"
 
 
 export default function PlanPage() {
 
-    const { user, setUser, token, setToken, idPlan } = useContext(InfoContext)
+    const { user, setUser, token, setToken, idPlan, plan, setPlan } = useContext(InfoContext)
     const [perk, setPerk] = useState([{}])
     
-    console.log(idPlan)
-
     useEffect(() => {
         const URL = `https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships/${idPlan}`
 
@@ -29,28 +28,30 @@ export default function PlanPage() {
 
         promise.then((res) => {
             console.log(res.data)
-            setUser(res.data)
+            setPlan(res.data)
             setPerk(res.data.perks)
         })
 
         promise.catch((err) => {
             console.log(err.response.data)
+            alert(err.response.data.message)
         })
 
     }, [])
-
-    console.log(perk)
 
     return (
         <>
             <ContainerScreen>
 
                 <Container>
-                    <img src={seta} alt="Seta" />
+                    <Link to="/subscriptions">
+                        <img src={seta} alt="Seta" />
+                    </Link>
+                    
                     <Imagem>
-                        <img src={user.image} alt="Logo Driven" />
+                        <img src={plan.image} alt="Logo Driven" />
                     </Imagem>
-                    <Title>{user.name}</Title>
+                    <Title>{plan.name}</Title>
                     <InfoPlano>
                         <ContainerBeneficio>
                             <img src={calendario} alt="calendario" />
@@ -58,13 +59,13 @@ export default function PlanPage() {
                         </ContainerBeneficio>
 
                         {perk.map((b, index) => ( 
-                            <p>{index + 1}.{b.title}</p> 
+                            <p key={index}>{index + 1}.{b.title}</p> 
                         ))}
                         <ContainerPreco>
                             <img src={nota} alt="nota" />
                             <h3>Preço:</h3>
                         </ContainerPreco>
-                        <p>R${user.price} cobrados mensalmente</p>
+                        <p>R${plan.price} cobrados mensalmente</p>
                     </InfoPlano>
                     <SignPlan/>
                 </Container>

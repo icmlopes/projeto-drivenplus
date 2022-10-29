@@ -1,27 +1,32 @@
+import { useContext } from "react"
 import styled from "styled-components"
-import NavBar from "../components/NavBar"
+import NavBar from "../../components/NavBar"
+import { InfoContext } from "../../context/Info"
 
 
 export default function HomePage() {
+
+    const { userMembership, user, setUser, planPerks, setPlanPerks } = useContext(InfoContext)
+
+    console.log(user)
+
     return (
         <>
             <NavBar />
             <ContainerScreen>
                 <Container>
                     <Title>
-                        Olá, Fulano
+                        Olá, {user.name}
                     </Title>
-                    <ContainerBeneficios>
-                        <Button>
-                            Solicitar brindes
-                        </Button>
-                        <Button>
-                            Materiais bônus da web
-                        </Button>
-                        <Button>
-                            Materiais bônus da web
-                        </Button>
-                    </ContainerBeneficios>
+                    <ContainerBenefits>
+                        {planPerks.map((t, index) => (
+                            <a href={t.link}>
+                                <Benefits key={index}>
+                                    {t.title}
+                                </Benefits>
+                            </a>
+                        ))}
+                    </ContainerBenefits>
                     <ContainerFuncionalidades>
                         <Button>
                             Mudar plano
@@ -56,11 +61,23 @@ display: flex;
 justify-content: center;
 `
 
-const ContainerBeneficios = styled.div`
+const ContainerBenefits = styled.div`
 display: flex;
 align-items:center;
 justify-content: center;
 flex-direction:column;
+`
+
+const Benefits = styled.button`
+background-color: #FF4791;
+border-radius: 5px;
+font-weight: 700;
+color: #FFFFFF;
+height: 45px;
+border: none;
+margin-top: 13px;
+font-family: roboto;
+width: 330px;
 `
 
 const Button = styled.button`

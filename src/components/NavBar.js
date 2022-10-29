@@ -1,13 +1,21 @@
+
+import { useContext } from "react";
 import styled from "styled-components";
 import usuario from "../assets/img/usuario.png"
-import plano1 from "../assets/img/Plano1.png"
+import { InfoContext } from "../context/Info";
+
 
 export default function NavBar(){
+
+    const { userMembership, setUserMembership } = useContext(InfoContext)
+
+    console.log(userMembership)
+
     return(
         <Container>
             <Divisao>
                 <Logo>
-                    <img src={plano1} alt="Logo Driven"/>
+                    <img src={userMembership.membership.image} alt="Logo Driven"/>
                 </Logo>
                 <img src={usuario} alt="Perfil usuário"/>
             </Divisao>

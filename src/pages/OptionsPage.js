@@ -9,10 +9,9 @@ export default function OptionsPage() {
     const { user, setUser, token, setToken, setIdPlan } = useContext(InfoContext)
     const [selectedPlan, setSelectedPlan] = useState([])
     const navigate = useNavigate()
-    const [perk, setPerk] = useState([{}])
-
+    
     useEffect(() => {
-        if (token !== undefined) {
+        if (token !== null) {
             console.log(token)
             const config = {
                 headers: {
@@ -26,18 +25,16 @@ export default function OptionsPage() {
             promise.then((res) => {
                 console.log(res.data)
                 setSelectedPlan(res.data)
-                setPerk(res.data.perks)
             })
 
             promise.catch((err) => {
                 console.log(err.response.data)
             })
 
-
         }
     }, [user])
 
-    if (user.token === undefined) {
+    if (token === null) {
         return (
             <ContainerScreen>
                 <Container>

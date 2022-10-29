@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import styled from "styled-components";
 import Info from "./context/Info"
 import LoginPage from "./pages/LoginPage"
-import HomePage from "./pages/HomePage"
+import HomePage from "./pages/HomePage/HomePage"
 import RegisterPage from "./pages/RegisterPage"
 import OptionsPage from "./pages/OptionsPage"
 import PlanPage from "./pages/PlanPage/PlanPage"

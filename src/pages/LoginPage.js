@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import Logo from "../assets/img/Driven.png"
@@ -13,6 +13,10 @@ export default function LoginPage() {
     const navigate = useNavigate()
     const { user, setUser, setAndPersistToken, token, setToken } = useContext(InfoContext)
     
+    useEffect(() => {
+        if ( token !== null) navigate("/subscriptions") 
+
+    }, [token])
 
     function login(event) {
 
@@ -23,16 +27,19 @@ export default function LoginPage() {
         const promise = axios.post(URL, form)
 
         promise.then(res => {
-            form.membership === null ? navigate("/home") : navigate("/subscriptions")
-            setUser(res.data)
             setAndPersistToken(res.data.token)
+            setUser(res.data)
             console.log(res.data)
+
+            form.membership === null ? navigate("/home") : navigate("/subscriptions")
         })
 
         promise.catch((err) => {
             console.log(err.response.data)
             alert(err.response.data.message)
         })
+
+
 
         console.log(token)
     }
